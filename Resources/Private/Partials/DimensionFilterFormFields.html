@@ -1,0 +1,12 @@
+<fieldset class="neos-span12">
+	<legend>Dimensions</legend>
+	<f:for each="{dimensionPresets}" key="key" as="dimension">
+		<div class="neos-control-group{f:validation.ifHasErrors(for: 'receiverSource.dimensionFilter.{key}', then: ' neos-error')}">
+			<label class="neos-control-label" for="dimensionFilter.{key}">Filter {dimension.label}</label>
+			<div class="neos-controls">
+				<f:form.textfield property="dimensionFilter.{key}" id="dimensionFilter.{key}" class="neos-span12" />
+				<f:render partial="FieldValidationResults" arguments="{fieldname: 'receiverSource.dimensionFilter.{key}'}"/>
+			</div>
+		</div>
+	</f:for>
+</fieldset>

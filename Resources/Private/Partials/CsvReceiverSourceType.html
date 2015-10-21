@@ -1,0 +1,13 @@
+<fieldset class="neos-span12">
+	<legend>CSV Receiver Source Configuration</legend>
+
+	<div class="neos-control-group{f:validation.ifHasErrors(for: 'receiverSource.sourceFile', then: ' neos-error')}">
+		<label class="neos-control-label" for="sourceFileName">Source File</label>
+		<div class="neos-controls">
+			<f:form.upload property="sourceFile" id="sourceFileName" class="neos-span12" />
+			<f:render partial="FieldValidationResults" arguments="{fieldname: 'receiverSource.sourceFile'}"/>
+		</div>
+	</div>
+</fieldset>
+
+<f:render partial="DimensionFilterFormFields" arguments="{_all}" />

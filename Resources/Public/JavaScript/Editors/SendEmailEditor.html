@@ -1,0 +1,20 @@
+<p>When this newsletter is sent, the following languages will be sent:</p>
+<p>
+	<br />
+	{{#each language in view.languages}}
+		<i {{bindAttr class="language.translationExists:icon-ok-circle:icon-question-sign"}} />
+		{{language.language}}
+		{{#if language.translationExists}}
+			({{language.count}} recipients)
+		{{/if}}
+
+		{{#unless language.translationExists}}
+			(translation missing)
+		{{/unless}}
+		 <br />
+	{{/each}}
+</p>
+<p>
+	<br />
+	<button {{action "send" target="view"}}>{{view.sendButtonLabel}}</button>
+</p>

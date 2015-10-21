@@ -1,0 +1,49 @@
+-
+  name: 'Newsletter Sending'
+  uriPattern: 'newsletter-api/send'
+  defaults:
+    '@controller': 'NewsletterSending'
+    '@package': 'Sandstorm.Newsletter'
+    '@action':     'index'
+  appendExceedingArguments: TRUE
+  httpMethods: ['GET', 'POST']
+
+-
+  name: 'Newsletter Sending'
+  uriPattern: 'newsletter-api/status'
+  defaults:
+    '@controller': 'NewsletterSending'
+    '@package': 'Sandstorm.Newsletter'
+    '@action':     'status'
+  appendExceedingArguments: TRUE
+  httpMethods: ['GET']
+
+-
+  name: 'Newsletter Sending'
+  uriPattern: 'newsletter-api/cancel'
+  defaults:
+    '@controller': 'NewsletterSending'
+    '@package': 'Sandstorm.Newsletter'
+    '@action':     'cancel'
+  appendExceedingArguments: TRUE
+  httpMethods: ['POST']
+
+-
+  name: 'Newsletter Sending'
+  uriPattern: 'newsletter-api/failures'
+  defaults:
+    '@controller': 'NewsletterSending'
+    '@package': 'Sandstorm.Newsletter'
+    '@action':     'failures'
+  appendExceedingArguments: TRUE
+  httpMethods: ['GET']
+
+-
+  name: 'Newsletter Unsubscribe'
+  uriPattern: 'newsletter-unsubscribe'
+  defaults:
+    '@controller': 'Unsubscribe'
+    '@package': 'Sandstorm.Newsletter'
+    '@action':     'unsubscribe'
+  appendExceedingArguments: TRUE
+  httpMethods: ['GET']

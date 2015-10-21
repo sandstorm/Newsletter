@@ -1,0 +1,24 @@
+<!--
+  ~ Copyright (c) 2015. Sandstorm Media GmbH.
+  ~ This is proprietary software.
+  -->
+
+<f:layout name="BackendSubModule" />
+
+<f:section name="subtitle">
+	<div class="neos-module-container">
+		<h2>Edit Receiver Group "{receiverGroup.fullLabel}"</h2>
+	</div>
+</f:section>
+
+<f:section name="content">
+	<f:form action="updateReceiverGroup" object="{receiverGroup}" objectName="receiverGroup" class="receiverGroup receiverGroup-edit" enctype="multipart/form-data">
+		<f:render partial="ReceiverGroupFormFields" arguments="{_all}"/>
+
+		<div class="neos-footer">
+			<f:link.action action="index" class="neos-button">Cancel</f:link.action>
+			<f:form.submit value="Save Receiver Group" class="neos-button neos-button-primary" />
+		</div>
+	</f:form>
+	<f:form action="index" id="postHelper" method="post"></f:form>
+</f:section>

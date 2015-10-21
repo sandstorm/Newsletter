@@ -1,0 +1,40 @@
+<!--
+  ~ Copyright (c) 2015. Sandstorm Media GmbH.
+  ~ This is proprietary software.
+  -->
+
+<div class="neos-modal sandstorm-newsletter-confirmation">
+	<div class="neos-modal-header">
+		<button class="neos-close neos-button" title="{{translate id='close' fallback='Close'}}" {{action "cancel" target="view"}}></button>
+		<div class="neos-header">{{view.title}}</div>
+	</div>
+	<div>
+		<div class="neos-subheader">
+			{{#if view.receiverGroupChosen}}
+				<p>Did you remember to publish the variants in all languages? (only published content is sent out!)</p>
+				<p>The newsletter will be sent to the following recipients:</p>
+				<p>
+					<br />
+					{{#each language in view.languages}}
+					{{#if language.translationExists}}
+					<i {{bindAttr class="language.translationExists:icon-ok-circle:icon-question-sign"}}></i>
+					{{language.language}}
+					({{language.count}} recipients)
+					{{/if}}
+					<br />
+					{{/each}}
+				</p>
+			{{else}}
+				<p>No receiver group was chosen yet. Please choose one before sending the newsletter.</p>
+			{{/if}}
+		</div>
+	</div>
+	<div class="neos-modal-footer">
+		<button class="neos-button" title="{{translate id='cancel' fallback='Cancel'}}" {{action "cancel" target="view"}}>{{translate id="cancel" fallback="Cancel"}}</button>
+
+		{{#if view.receiverGroupChosen}}
+			<button class="neos-button neos-button-danger" title="Send" {{action "sendNewsletter" target="view"}}>Yes, really send Newsletter</button>
+		{{/if}}
+	</div>
+</div>
+<div class="neos-modal-backdrop neos-in"></div>

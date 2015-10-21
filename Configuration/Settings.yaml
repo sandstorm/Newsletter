@@ -1,0 +1,53 @@
+Sandstorm:
+  Newsletter:
+    receiverGroupCache: %FLOW_PATH_DATA%/Persistent/ReceiverGroups
+    sendingApiUri: http://127.0.0.1:3000
+    auth_token: A_LONG_RANDOM_STRING
+    hmacUrlSecret: LONG_AND_RANDOM_AS_WELL
+
+    receiverSourceTypes:
+      json:
+        label: JSON File (one receiver per line, as single JSON)
+        className: \Sandstorm\Newsletter\Domain\Model\JsonReceiverSource
+      csv:
+        label: CSV Upload
+        className: \Sandstorm\Newsletter\Domain\Model\CsvReceiverSource
+
+TYPO3:
+  Neos:
+    userInterface:
+      requireJsPathMapping:
+        'Sandstorm.Newsletter': 'resource://Sandstorm.Newsletter/Public/JavaScript/Editors'
+
+
+      # we need to enforce that the "desktop" preview renders /page; as otherwise we won't have a full refresh
+      # when switching between the newsletter preview and the In-Place Editor (which we need)
+      editPreviewModes:
+        desktop:
+          typoScriptRenderingPath: 'page'
+
+    modules:
+      management:
+        submodules:
+          newsletter:
+            label: 'Newsletter Receiver Management'
+            controller: '\Sandstorm\Newsletter\Controller\ReceiverGroupModuleController'
+            description: 'Manage Newsletter Subscribers.'
+            icon: 'icon-envelope-alt'
+            privilegeTarget: 'Sandstorm.Newsletter:Backend.Module.Management.Newsletter'
+
+    typoScript:
+      autoInclude:
+        'Sandstorm.Newsletter': TRUE
+
+  TypoScript:
+    defaultContext:
+      'Sandstorm.Newsletter': 'Sandstorm\Newsletter\EelHelper'
+
+  Flow:
+    security:
+      authentication:
+        providers:
+          Typo3BackendProvider:
+            requestPatterns:
+              controllerObjectName: 'TYPO3\Neos\Controller\.*|TYPO3\Neos\Service\.*|TYPO3\Media\Controller\.*|Sandstorm\Newsletter\Controller\(NewsletterSending|ReceiverGroupModule)Controller.*'

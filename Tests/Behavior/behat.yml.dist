@@ -1,0 +1,10 @@
+default:
+  paths:
+    features: Features
+    bootstrap: %behat.paths.features%/Bootstrap
+  context:
+    parameters:
+      mailerGoPath: ~/src/golang/src/github.com/sandstorm/mailer-daemon/main
+      # we assume Redis is on the PATH
+      redisCommand: redis-server
+      mailhogCommand: ~/Downloads/MailHog_darwin_amd64

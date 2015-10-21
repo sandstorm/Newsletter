@@ -1,0 +1,18 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+
+<f:form.hidden name="receiverSourceType" value="{receiverSourceType}" />
+<div class="neos-row-fluid neos-module-container">
+	<fieldset class="neos-span12">
+		<legend>Basic Data</legend>
+
+		<div class="neos-control-group{f:validation.ifHasErrors(for: 'receiverSource.name', then: ' neos-error')}">
+			<label class="neos-control-label" for="name">Name</label>
+			<div class="neos-controls neos-controls-row">
+				<f:form.textfield property="name" id="name" class="neos-span12" />
+				<f:render partial="FieldValidationResults" arguments="{fieldname: 'receiverSource.name'}"/>
+			</div>
+		</div>
+	</fieldset>
+
+	<f:render partial="{receiverSourceType -> f:format.case(mode: 'capital')}ReceiverSourceType" arguments="{_all}" />
+</div>

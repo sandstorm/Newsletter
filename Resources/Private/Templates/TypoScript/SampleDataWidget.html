@@ -1,0 +1,41 @@
+{namespace sn=Sandstorm\Newsletter\ViewHelpers}
+<div class="sandstorm-newsletter-sample-data"
+	data-newsletter-sending-endpoint="{f:uri.action(controller:'NewsletterSending', action:'index', package:'Sandstorm.Newsletter', arguments: {node: node})}"
+	data-newsletter-status-endpoint="{f:uri.action(controller:'NewsletterSending', action:'status', package:'Sandstorm.Newsletter', arguments: {node: node})}"
+	data-newsletter-cancel-endpoint="{f:uri.action(controller:'NewsletterSending', action:'cancel', package:'Sandstorm.Newsletter', arguments: {node: node})}"
+	data-newsletter-failures-endpoint="{f:uri.action(controller:'NewsletterSending', action:'failures', package:'Sandstorm.Newsletter', arguments: {node: node})}"
+	data-newsletter-csrf-token="{f:security.csrfToken()}"
+	data-newsletter-number-of-recipients="{numberOfRecipients -> f:format.json()}">
+
+	<div class="newsletter-sending-status newsletter-is-not-yet-sent"></div>
+
+	<span class="collapse">›</span>
+	<h2>Newsletter Sample Data</h2>
+
+	<div class="newsletter-sample-contents{f:if(condition: sampleData, then: ' is-sample-data-available')}">
+		<f:if condition="{sampleData}">
+			<f:then>
+				<table>
+					<f:for each="{sampleData -> sn:flattenArray()}" key="key" as="value">
+						<tr>
+							<td class="sample-key">
+								<![CDATA[{]]>{key}<![CDATA[}]]>
+							</td>
+							<td>
+								{value}
+							</td>
+						</tr>
+					</f:for>
+				</table>
+			</f:then>
+			<f:else>
+				<p>Please select a Receiver Group in the inspector first; then this sample data can be seen</p>
+			</f:else>
+		</f:if>
+
+		<div class="newsletter-dimension-menu">{dimensionMenu -> f:format.raw()}</div>
+
+		<!--<div class="newsletter-sending-status">
+		</div>-->
+	</div>
+</div>

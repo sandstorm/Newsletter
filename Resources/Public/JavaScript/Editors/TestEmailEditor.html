@@ -1,0 +1,4 @@
+	<br />
+	<p>{{view view.TextField placeholder="test@email.de" valueBinding="view.emailAddress"}}</p>
+	<br />
+	<button {{bindAttr disabled="view.sendMailButtonDisabled"}}{{action "send" target="view"}}>{{view.sendButtonLabel}}</button>

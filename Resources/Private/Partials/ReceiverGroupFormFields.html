@@ -1,0 +1,31 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+
+<div class="neos-row-fluid neos-module-container">
+	<fieldset class="neos-span12">
+		<legend>Basic Data</legend>
+
+		<div class="neos-control-group{f:validation.ifHasErrors(for: 'receiverGroup.name', then: ' neos-error')}">
+			<label class="neos-control-label" for="name">Name</label>
+			<div class="neos-controls neos-controls-row">
+				<f:form.textfield property="name" id="name" class="neos-span12" />
+				<f:render partial="FieldValidationResults" arguments="{fieldname: 'receiverGroup.name'}"/>
+			</div>
+		</div>
+
+		<div class="neos-control-group{f:validation.ifHasErrors(for: 'receiverGroup.unsubscribeList', then: ' neos-error')}">
+			<label class="neos-control-label" for="unsubscribeList">Unsubscribe List</label>
+			<div class="neos-controls neos-controls-row">
+				<f:form.select property="unsubscribeList" id="unsubscribeList" options="{unsubscribeLists}" optionLabelField="name" class="neos-span12" />
+				<f:render partial="FieldValidationResults" arguments="{fieldname: 'receiverGroup.unsubscribeList'}"/>
+			</div>
+		</div>
+
+		<div class="neos-control-group{f:validation.ifHasErrors(for: 'receiverGroup.filter', then: ' neos-error')}">
+			<label class="neos-control-label" for="filter">Filter</label>
+			<div class="neos-controls neos-controls-row">
+				<f:form.textfield property="filter" id="filter" class="neos-span12" />
+				<f:render partial="FieldValidationResults" arguments="{fieldname: 'receiverGroup.filter'}"/>
+			</div>
+		</div>
+	</fieldset>
+</div>

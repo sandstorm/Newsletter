@@ -1,0 +1,18 @@
+{
+    "name": "sandstorm/newsletter",
+    "type": "typo3-flow-package",
+    "description": "Add description here",
+    "require": {
+        "typo3/flow": "*",
+        "typo3/neos": "*",
+        "guzzlehttp/guzzle": "~5.0",
+        "symfony/process": "~2.6",
+        "tijsverkoyen/css-to-inline-styles": "~1.5",
+        "league/csv": "~7.1"
+    },
+    "autoload": {
+        "psr-0": {
+            "Sandstorm\\Newsletter": "Classes"
+        }
+    }
+}

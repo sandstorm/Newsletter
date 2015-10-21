@@ -1,0 +1,32 @@
+{namespace sn=Sandstorm\Newsletter\ViewHelpers}
+<f:layout name="BackendSubModule" />
+
+<f:section name="content">
+	<div class="neos-row-fluid">
+		<h1>Preview {receiverSource.name}</h1>
+		<p>
+			<br />
+			<f:if condition="{previousOffset} >= 0">
+				<f:link.action action="preview" arguments="{offset: previousOffset, receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button">Previous</f:link.action>
+			</f:if>
+			<f:if condition="{nextOffset}">
+				<f:link.action action="preview" arguments="{offset: nextOffset, receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button">Next</f:link.action>
+			</f:if>
+		</p>
+		<p>
+		<table>
+			<f:for each="{sampleData -> sn:flattenArray()}" key="key" as="value">
+				<tr>
+					<td class="sample-key">
+						<![CDATA[{]]>{key}<![CDATA[}]]>
+					</td>
+					<td>
+						{value}
+					</td>
+				</tr>
+			</f:for>
+		</table>
+		</p>
+	</div>
+	<f:link.action action="index" class="neos-button neos-button-primary">back to list</f:link.action>
+</f:section>

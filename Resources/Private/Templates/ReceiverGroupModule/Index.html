@@ -1,0 +1,203 @@
+<f:layout name="BackendSubModule" />
+
+<f:section name="content">
+	<div class="neos-row-fluid">
+		<table class="neos-table">
+			<thead>
+			<tr>
+				<th colspan="2">Name</th>
+				<th>Configuration</th>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+			</tr>
+			</thead>
+			<f:for each="{receiverSources}" key="index" as="receiverSource">
+				<tr>
+					<td colspan="2">{receiverSource.name}</td>
+					<td>{receiverSource.configurationAsString} - last updated {receiverSource.lastUpdated -> f:format.date(format:'Y-m-d H:i:s')}</td>
+					<td class="neos-action">
+						<div class="neos-pull-right">
+							<f:link.action action="refresh" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button neos-button-primary" title="Receiver Source Refresh">
+								<i class="icon-refresh icon-white"></i>
+							</f:link.action>
+							<f:link.action action="preview" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button neos-button-primary" title="Receiver Source Preview">
+								<i class="icon-eye-open icon-white"></i>
+							</f:link.action>
+							<f:link.action action="edit" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button neos-button-primary" title="Edit Receiver Source">
+								<i class="icon-pencil icon-white"></i>
+							</f:link.action>
+
+							<button class="neos-button neos-button-danger" title="Click to delete" data-toggle="modal" href="#receiverSource-{index}">
+								<i class="icon-trash icon-white"></i>
+							</button>
+							<div class="neos-hide" id="receiverSource-{index}">
+								<div class="neos-modal">
+									<div class="neos-modal-header">
+										<button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
+										<div class="neos-header">Do you really want to delete the receiver source "{receiverSource.name}"?</div>
+										<div>
+											<div class="neos-subheader">
+												<p>This will delete the receiver source completely, and there is no way to restore the email recipient list.</p>
+											</div>
+										</div>
+									</div>
+									<div class="neos-modal-footer">
+										<a href="#" class="neos-button" data-dismiss="modal">Cancel</a>
+										<f:form action="delete" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-inline">
+											<button type="submit" class="neos-button neos-button-danger" title="Delete Receiver Source">
+												Yes, delete the Receiver Source
+											</button>
+										</f:form>
+									</div>
+								</div>
+								<div class="neos-modal-backdrop neos-in"></div>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<f:for each="{receiverSource.receiverGroups}" key="innerIndex" as="receiverGroup">
+					<tr>
+						<td>&nbsp;</td>
+						<td>{receiverGroup.name}</td>
+						<td>{receiverGroup.filter}
+							<f:if condition="{receiverGroup.cacheFiles}">
+								<f:then>
+									processed {receiverGroup.cacheFiles}
+								</f:then>
+								<f:else>
+									not processed
+								</f:else>
+							</f:if>
+						</td>
+						<td class="neos-action">
+							<div class="neos-pull-right">
+								<f:link.action action="previewReceiverGroup" arguments="{receiverGroup: receiverGroup}" class="neos-button neos-button-primary" title="Receiver Group Preview">
+									<i class="icon-eye-open icon-white"></i>
+								</f:link.action>
+								<f:link.action action="editReceiverGroup" arguments="{receiverGroup: receiverGroup}" class="neos-button neos-button-primary" title="Edit Receiver Group">
+									<i class="icon-pencil icon-white"></i>
+								</f:link.action>
+
+								<button class="neos-button neos-button-danger" title="Click to delete" data-toggle="modal" href="#receiverGroup-{index}-{innerIndex}">
+									<i class="icon-trash icon-white"></i>
+								</button>
+								<div class="neos-hide" id="receiverGroup-{index}-{innerIndex}">
+									<div class="neos-modal">
+										<div class="neos-modal-header">
+											<button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
+											<div class="neos-header">Do you really want to delete the receiver group "{receiverGroup.fullLabel}"?</div>
+											<div>
+												<div class="neos-subheader">
+													<p>This will delete the receiver group completely, and there is no way to restore the email recipient list.</p>
+												</div>
+											</div>
+										</div>
+										<div class="neos-modal-footer">
+											<a href="#" class="neos-button" data-dismiss="modal">Cancel</a>
+											<f:form action="deleteReceiverGroup" arguments="{receiverGroup: receiverGroup}" class="neos-inline">
+												<button type="submit" class="neos-button neos-button-danger" title="Delete Receiver Group">
+													Yes, delete the Receiver Group
+												</button>
+											</f:form>
+										</div>
+									</div>
+									<div class="neos-modal-backdrop neos-in"></div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</f:for>
+				<tr>
+					<td>&nbsp;</td>
+					<td colspan="3">
+						<f:link.action action="newReceiverGroup" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button neos-button-primary" title="Add Receiver Group">
+							<i class="icon-plus icon-white"></i> Add Receiver Group
+						</f:link.action>
+					</td>
+				</tr>
+			</f:for>
+		</table>
+	</div>
+
+
+	<div class="neos-row-fluid">
+		<table class="neos-table">
+			<thead>
+				<tr>
+					<th colspan="2">Unsubscribe List</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<f:for each="{unsubscribeLists}" key="index" as="unsubscribeList">
+				<tr>
+					<td>{unsubscribeList.name}</td>
+					<td class="neos-action">
+						<div class="neos-pull-right">
+							<f:link.action action="downloadUnsubscribeList" arguments="{unsubscribeList: unsubscribeList}" class="neos-button neos-button-primary" title="Download Unsubscribe List">
+								<i class="icon-download-alt icon-white"></i>
+							</f:link.action>
+							<f:link.action action="editUnsubscribeList" arguments="{unsubscribeList: unsubscribeList}" class="neos-button neos-button-primary" title="Edit Unsubscribe List">
+								<i class="icon-pencil icon-white"></i>
+							</f:link.action>
+
+							<button class="neos-button neos-button-danger" title="Click to delete" data-toggle="modal" href="#unsubscribeList-{index}">
+								<i class="icon-trash icon-white"></i>
+							</button>
+							<div class="neos-hide" id="unsubscribeList-{index}">
+								<div class="neos-modal">
+									<div class="neos-modal-header">
+										<button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
+										<div class="neos-header">Do you really want to delete the unsubscribe list "{unsubscribeList.name}"?</div>
+									</div>
+									<div class="neos-modal-footer">
+										<a href="#" class="neos-button" data-dismiss="modal">Cancel</a>
+										<f:form action="deleteUnsubscribeList" arguments="{unsubscribeList: unsubscribeList}" class="neos-inline">
+											<button type="submit" class="neos-button neos-button-danger" title="Delete Unsubscribe List">
+												Yes, delete the Unsubscribe List
+											</button>
+										</f:form>
+									</div>
+								</div>
+								<div class="neos-modal-backdrop neos-in"></div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</f:for>
+		</table>
+	</div>
+
+	<div class="neos-footer">
+		<button class="neos-button neos-button-primary" title="Create new Receiver Source" data-toggle="modal" href="#receiverSource-new">
+			Create Receiver Source
+		</button>
+		<div class="neos-hide" id="receiverSource-new">
+			<div class="neos-modal">
+				<div class="neos-modal-header">
+					<button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
+					<div class="neos-header">Create a new receiver source</div>
+					<div>
+						<div class="neos-subheader">
+							Please select the type of receiver source to create:
+
+							<ul>
+								<f:for each="{receiverSourceTypes}" as="receiverSourceTypeConfiguration" key="receiverSourceType">
+									<li><p><f:link.action action="new" class="neos-button" title="Create new Receiver Source" arguments="{receiverSourceType: receiverSourceType}">Create {receiverSourceTypeConfiguration.label}</f:link.action></p><br /></li>
+								</f:for>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="neos-modal-footer">
+					<a href="#" class="neos-button" data-dismiss="modal">Cancel</a>
+				</div>
+			</div>
+			<div class="neos-modal-backdrop neos-in"></div>
+		</div>
+
+		<f:link.action action="newUnsubscribeList" class="neos-button" title="Create new Unsubscribe List">Create Unsubscribe List</f:link.action>
+
+
+	</div>
+</f:section>

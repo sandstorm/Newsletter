@@ -1,0 +1,23 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+
+<div class="neos-row-fluid neos-module-container">
+	<fieldset class="neos-span12">
+		<legend>Basic Data</legend>
+
+		<div class="neos-control-group{f:validation.ifHasErrors(for: 'unsubscribeList.name', then: ' neos-error')}">
+			<label class="neos-control-label" for="name">Name</label>
+			<div class="neos-controls neos-controls-row">
+				<f:form.textfield property="name" id="name" class="neos-span12" />
+				<f:render partial="FieldValidationResults" arguments="{fieldname: 'unsubscribeList.name'}"/>
+			</div>
+		</div>
+
+		<div class="neos-control-group{f:validation.ifHasErrors(for: 'unsubscribeList.unsubscribeFile', then: ' neos-error')}">
+			<label class="neos-control-label" for="unsubscribeFile">Unsubscribe-File Upload</label>
+			<div class="neos-controls neos-controls-row">
+				<f:form.upload property="unsubscribeFile" id="unsubscribeFile" class="neos-span12" />
+				<f:render partial="FieldValidationResults" arguments="{fieldname: 'unsubscribeList.unsubscribeFile'}"/>
+			</div>
+		</div>
+	</fieldset>
+</div>

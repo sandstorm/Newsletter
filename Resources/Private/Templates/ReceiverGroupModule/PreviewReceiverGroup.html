@@ -1,0 +1,27 @@
+{namespace sn=Sandstorm\Newsletter\ViewHelpers}
+<f:layout name="BackendSubModule" />
+
+<f:section name="content">
+	<div class="neos-row-fluid">
+		<h1>Preview {receiverGroup.fullLabel}</h1>
+		<f:for each="{exampleDataPerLanguage}" key="language" as="sampleData">
+			<h2>{language}</h2>
+			<p>Found {sampleData.numberOfReceivers} addresses.</p>
+			<p>
+				<table>
+					<f:for each="{sampleData.singleLine -> sn:flattenArray()}" key="key" as="value">
+						<tr>
+							<td class="sample-key">
+								<![CDATA[{]]>{key}<![CDATA[}]]>
+							</td>
+							<td>
+								{value}
+							</td>
+						</tr>
+					</f:for>
+				</table>
+			</p>
+		</f:for>
+	</div>
+	<f:link.action action="index" class="neos-button neos-button-primary">back to list</f:link.action>
+</f:section>

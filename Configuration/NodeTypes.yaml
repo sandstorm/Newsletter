@@ -1,0 +1,104 @@
+
+'Sandstorm.Newsletter:Newsletter':
+  superTypes:
+    'TYPO3.Neos.NodeTypes:Page': true
+  ui:
+    label: Newsletter
+    icon: icon-envelope
+    group: general
+    inspector:
+      tabs:
+        sendEmail:
+          label: 'Send Email'
+          position: 40
+          icon: icon-envelope
+      groups:
+        receiverGroup:
+          label: 'Receiver Group'
+          position: 80
+          tab: sendEmail
+        receiverSettings:
+          label: 'Email Settings'
+          position: 90
+          tab: sendEmail
+        testEmail:
+          label: 'Test Email'
+          position: 100
+          tab: sendEmail
+        sendEmail:
+          label: 'Send Newsletter'
+          position: 200
+          tab: sendEmail
+  properties:
+    newsletterTestEmail:
+      type: string
+      ui:
+        label: 'Send Newsletter Test Email'
+        inspector:
+          group: testEmail
+          editor: Sandstorm.Newsletter/TestEmailEditor
+    newsletterSendEmail:
+      type: string
+      ui:
+        label: ''
+        inspector:
+          group: sendEmail
+          editor: Sandstorm.Newsletter/SendEmailEditor
+    receiverGroup:
+      type: string
+      ui:
+        label: 'Receiver Group'
+        reloadIfChanged: true
+        inspector:
+          group: receiverGroup
+          editor: Content/Inspector/Editors/SelectBoxEditor
+          editorOptions:
+            dataSourceIdentifier: receiverGroups
+    subjectTemplate:
+      type: string
+      ui:
+        label: Subject
+        inspector:
+          group: receiverSettings
+          editorOptions:
+            placeholder: 'Enter Email Subject'
+    receiverEmailTemplate:
+      type: string
+      ui:
+        label: 'Receiver Email'
+        inspector:
+          group: receiverSettings
+          editorOptions:
+            placeholder: '{email}'
+    receiverNameTemplate:
+      type: string
+      ui:
+        label: 'Receiver Name'
+        inspector:
+          group: receiverSettings
+          editorOptions:
+            placeholder: '{firstName} {lastName}'
+    senderEmailTemplate:
+      type: string
+      ui:
+        label: 'Sender Email'
+        inspector:
+          group: receiverSettings
+          editorOptions:
+            placeholder: newsletter@your-company.com
+    senderNameTemplate:
+      type: string
+      ui:
+        label: 'Sender Name'
+        inspector:
+          group: receiverSettings
+          editorOptions:
+            placeholder: 'Your Company Newsletter'
+    replyToEmailTemplate:
+      type: string
+      ui:
+        label: 'Reply-To Email'
+        inspector:
+          group: receiverSettings
+          editorOptions:
+            placeholder: newsletter@your-company.com

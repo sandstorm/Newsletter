@@ -1,0 +1,125 @@
+.sandstorm-newsletter-sample-data {
+    background: #323232;
+    color: white;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.sandstorm-newsletter-sample-data > * {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.sandstorm-newsletter-sample-data .collapse {
+    float: right;
+    font-size: 26px;
+    font-weight: normal;
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    left: 3px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    transform: rotate(90deg);
+    font-family: 'Noto Sans', sans-serif;
+    cursor: pointer;
+}
+
+.sandstorm-newsletter-sample-data .newsletter-sample-contents {
+    display: block;
+    font-size: 14px;
+    padding-bottom: 20px;
+}
+
+.sandstorm-newsletter-sample-data .newsletter-sample-contents .sample-key {
+    font-family: "Courier New", Courier, monospace;
+}
+
+.sandstorm-newsletter-sample-data.newsletter-collapsed .newsletter-sample-contents {
+    display: none;
+}
+
+.sandstorm-newsletter-sample-data.newsletter-collapsed .collapse {
+    transform: rotate(0deg);
+}
+
+.sandstorm-newsletter-sample-data h2 {
+    line-height: 40px;
+    margin: 0;
+    font-size: 14px;
+}
+
+.neos-navigate-panel-open .sandstorm-newsletter-sample-data {
+    padding-left: 320px;
+}
+
+.neos-inspector-panel-open .sandstorm-newsletter-sample-data {
+    padding-right: 320px;
+}
+
+.neos-controls .sandstorm-newsletter-sample-data {
+    padding-top: 80px;
+}
+
+
+
+.sandstorm-newsletter-sample-data .newsletter-dimension-menu {
+    display: none;
+}
+
+
+
+.newsletter-sending-status {
+    line-height: 40px;
+}
+
+.newsletter-sending-status.is-error {
+    background: #ff8700;
+}
+
+.newsletter-sending-status.is-not-sent {
+    background: #00b5ff;
+}
+
+.newsletter-sending-status.sending-or-sent {
+    background: #00a338;
+}
+
+
+.newsletter-sending-status button {
+    display: inline-block;
+    padding: 0 16px;
+    margin: 0;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    width: auto;
+    height: 40px;
+    line-height: 40px;
+    background-color: #3f3f3f;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+.newsletter-sending-status button:hover {
+    background-color: #00b5ff;
+}
+
+
+.sandstorm-newsletter-send-email-editor {
+    line-height: 1.5;
+}
+
+.sandstorm-newsletter-confirmation .icon-ok-circle,
+.sandstorm-newsletter-send-email-editor .icon-ok-circle {
+    color: #00a338;
+}
+
+.sandstorm-newsletter-confirmation .icon-question-sign,
+.sandstorm-newsletter-send-email-editor .icon-question-sign {
+    color: #ff8700;
+}

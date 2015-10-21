@@ -1,0 +1,19 @@
+<f:layout name="BackendSubModule" />
+
+<f:section name="subtitle">
+	<div class="neos-module-container">
+		<h2>Edit Receiver Source "{receiverSource.name}"</h2>
+	</div>
+</f:section>
+
+<f:section name="content">
+	<f:form action="update" object="{receiverSource}" objectName="receiverSource" class="receiverSource receiverSource-edit" enctype="multipart/form-data">
+		<f:render partial="ReceiverSourceFormFields" arguments="{_all}"/>
+
+		<div class="neos-footer">
+			<f:link.action action="index" class="neos-button">Cancel</f:link.action>
+			<f:form.submit value="Save Receiver Source" class="neos-button neos-button-primary" />
+		</div>
+	</f:form>
+	<f:form action="index" id="postHelper" method="post"></f:form>
+</f:section>

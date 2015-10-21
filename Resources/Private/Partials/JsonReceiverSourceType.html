@@ -1,0 +1,13 @@
+<fieldset class="neos-span12">
+	<legend>JSON Receiver Source Configuration</legend>
+
+	<div class="neos-control-group{f:validation.ifHasErrors(for: 'receiverSource.sourceFileName', then: ' neos-error')}">
+		<label class="neos-control-label" for="sourceFileName">Source File Name</label>
+		<div class="neos-controls">
+			<f:form.textfield property="sourceFileName" id="sourceFileName" class="neos-span12" />
+			<f:render partial="FieldValidationResults" arguments="{fieldname: 'receiverSource.sourceFileName'}"/>
+		</div>
+	</div>
+</fieldset>
+
+<f:render partial="DimensionFilterFormFields" arguments="{_all}" />

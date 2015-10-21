@@ -1,0 +1,79 @@
+prototype(Sandstorm.Newsletter:NewsletterPage) < prototype(Page) {
+    doctype = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
+    bodyTag.attributes {
+        leftmargin = "0"
+        marginwidth = "0"
+        topmargin = "0"
+        marginheight = "0"
+        offset = "0"
+    }
+
+    //head.neosBackendHeader.@if.disableWhenRendering = ${editPreviewMode != 'finalNewsletterRendering'}
+    //head.neosBackendEndpoints.@if.disableWhenRendering = ${editPreviewMode != 'finalNewsletterRendering'}
+
+//    neosBackendDocumentNodeData.@if.disableWhenRendering = ${editPreviewMode != 'finalNewsletterRendering'}
+//    neosBackendContainer.@if.disableWhenRendering = ${editPreviewMode != 'finalNewsletterRendering'}
+//    lastVisitedNodeScript.@if.disableWhenRendering = ${editPreviewMode != 'finalNewsletterRendering'}
+//    neosBackendFooter.@if.disableWhenRendering = ${editPreviewMode != 'finalNewsletterRendering'}
+}
+
+
+prototype(Sandstorm.Newsletter:SampleDataWidget) < prototype(TYPO3.TypoScript:Template) {
+    templatePath = 'resource://Sandstorm.Newsletter/Private/Templates/TypoScript/SampleDataWidget.html'
+    sampleData = ${Sandstorm.Newsletter.findRandomRecordForGroup(q(node).property('receiverGroup'), node.context.dimensions)}
+    node = ${documentNode}
+
+    numberOfRecipients = ${Sandstorm.Newsletter.findNumberOfRecipientsForGroup(q(node).property('receiverGroup'), node.context.dimensions)}
+
+    dimensionMenu = TYPO3.Neos:DimensionMenu {
+        dimension = 'language'
+        templatePath = 'resource://Sandstorm.Newsletter/Private/Templates/TypoScript/SampleDataDimensionMenu.html'
+    }
+
+    @if.onlyRenderWhenNotInLiveWorkspace = ${documentNode.context.inBackend}
+    @if.disableWhenRenderingDesktopPreview = ${documentNode.context.currentRenderingMode.name != 'desktop'}
+}
+
+prototype(Page).@process.replacePlaceholdersInDesktopPreview = Sandstorm.Newsletter:ReplacePlaceholdersInLive {
+    @class = 'Sandstorm\\Newsletter\\TypoScriptObjects\\ReplacePlaceholdersInLiveImplementation'
+    value = ${value}
+    isActive = ${documentNode.context.currentRenderingMode.name == 'desktop'}
+    sampleData = ${Sandstorm.Newsletter.findRandomRecordForGroup(q(node).property('receiverGroup'), node.context.dimensions)}
+}
+
+prototype(Page).sendingStatusJs = TYPO3.TypoScript:Tag {
+    @position = 'after neosBackendFooter 10000'
+    tagName = 'script'
+    attributes {
+        type = 'text/javascript'
+        src = TYPO3.TypoScript:ResourceUri {
+            path = 'resource://Sandstorm.Newsletter/Public/JavaScript/SendingStatus.js'
+        }
+    }
+    @if.onlyRenderWhenNotInLiveWorkspace = ${documentNode.context.inBackend}
+}
+
+prototype(Page).head.sendingStatusCss = TYPO3.TypoScript:Tag {
+    @position = 'after neosBackendHeader'
+
+    tagName = 'link'
+    attributes {
+        rel = 'stylesheet'
+        href = TYPO3.TypoScript:ResourceUri {
+            path = 'resource://Sandstorm.Newsletter/Public/Styles/SendingStatus.css'
+        }
+    }
+    @if.onlyRenderWhenNotInLiveWorkspace = ${documentNode.context.inBackend}
+}
+
+
+// Ensure that the current edit/preview mode is also added to the cache identifier of Page, as we render "/page" twice:
+// 1) during editing (editPreviewMode = inPlace)
+// 2) during preview (editPreviewMode = desktop)
+prototype(Page).@cache.entryIdentifier {
+    editPreviewMode = ${documentNode.context.currentRenderingMode.name}
+}
+prototype(TYPO3.Neos:ContentCollection).@cache.entryIdentifier {
+   editPreviewMode = ${documentNode.context.currentRenderingMode.name}
+}
+
