@@ -14,6 +14,15 @@ through Redis and a Go-Daemon, which can be found at https://github.com/sandstor
 
 ## Usage
 
-* Install this package
+
+* Install this package:
+```
+cd path/to/your/NeosDistribution
+cd Packages/Application
+git clone https://github.com/sandstorm/Newsletter.git Sandstorm.Newsletter
+cd ../../
+./flow flow:package:rescan
+```
+
 * Create a neos page template, using the TypoScript object `Sandstorm.Newsletter:NewsletterPage`.
 * all styles will be auto-inlined
