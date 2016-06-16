@@ -213,7 +213,12 @@ class NewsletterSendingController extends ActionController {
 		$newsletter->setSenderNameTemplate($nodeInCorrectDimension->getProperty('senderNameTemplate'));
 		$newsletter->setReplyToEmailTemplate($nodeInCorrectDimension->getProperty('replyToEmailTemplate'));
 		$newsletter->setNewsletterLink($this->linkingService->createNodeUri($this->getControllerContext(), $nodeInCorrectDimension, NULL, NULL, TRUE));
-		$newsletter->setUnsubscribeLink($this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('unsubscribe', array('unsubscribeList' => $this->persistenceManager->getIdentifierByObject($receiverGroup->getUnsubscribeList())), 'Unsubscribe', 'Sandstorm.Newsletter'));
+
+		$unsubscribeListIdentifier = null;
+		if ($receiverGroup->getUnsubscribeList()) {
+			$unsubscribeListIdentifier = $this->persistenceManager->getIdentifierByObject($receiverGroup->getUnsubscribeList());
+		}
+		$newsletter->setUnsubscribeLink($this->uriBuilder->reset()->setCreateAbsoluteUri(TRUE)->uriFor('unsubscribe', array('unsubscribeList' => $unsubscribeListIdentifier), 'Unsubscribe', 'Sandstorm.Newsletter'));
 
 		$this->newsletterSendingService->sendNewsletter($newsletter, $languageKey);
 	}

@@ -49,20 +49,6 @@
     font-size: 14px;
 }
 
-.neos-navigate-panel-open .sandstorm-newsletter-sample-data {
-    padding-left: 320px;
-}
-
-.neos-inspector-panel-open .sandstorm-newsletter-sample-data {
-    padding-right: 320px;
-}
-
-.neos-controls .sandstorm-newsletter-sample-data {
-    padding-top: 80px;
-}
-
-
-
 .sandstorm-newsletter-sample-data .newsletter-dimension-menu {
     display: none;
 }

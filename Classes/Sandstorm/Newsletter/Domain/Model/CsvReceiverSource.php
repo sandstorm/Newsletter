@@ -13,6 +13,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\PersistenceManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use TYPO3\Flow\Resource\Resource;
+use TYPO3\Flow\Utility\Files;
 
 /**
  * Class CsvReceiverSource
@@ -81,6 +82,8 @@ class CsvReceiverSource extends ReceiverSource {
 		foreach ($csv as $row) {
 			$output[] = json_encode($row);
 		}
+
+		Files::createDirectoryRecursively(dirname($this->getSourceFileName()));
 
 		file_put_contents($this->getSourceFileName(), implode("\n", $output));
 
