@@ -39,14 +39,11 @@ The following things are *not yet implemented, but might be implemented in furth
 
 ## Installation / Set Up
 
-* Install this package: TODO through packagist
-```
-cd path/to/your/NeosDistribution
-cd Packages/Application
-git clone https://github.com/sandstorm/Newsletter.git Sandstorm.Newsletter
-cd ../../
-./flow flow:package:rescan
-```
+* Install this package through packagist:
+  ```
+  cd path/to/your/NeosDistribution
+  composer require sandstorm/newsletter
+  ```
 
 * Ensure you have the Routes included, so that means `Configuration/Routes.yaml` should contain the following
   *before* the Neos routes:
