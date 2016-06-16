@@ -1,7 +1,8 @@
 {
     "name": "sandstorm/newsletter",
     "type": "typo3-flow-package",
-    "description": "Add description here",
+    "description": "Package for Neos, such that it can be used to send Newsletters in a performant way.",
+    "license": "MIT",
     "require": {
         "typo3/flow": "*",
         "typo3/neos": "*",

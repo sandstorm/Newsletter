@@ -111,3 +111,6 @@ and is a JSON object containing arbitrary properties (where one must be at least
 
 If you get stuck, feel free to contact @sebastian or @christoph.daehne in Slack at slack.neos.io.
 
+## License
+
+This software is licensed as MIT.
