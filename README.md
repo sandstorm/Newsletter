@@ -12,10 +12,28 @@ Is is comprised of two parts:
 This is a newsletter sending infrastructure based on Neos. The actual newsletter-sending is handled
 through Redis and a Go-Daemon, which can be found at https://github.com/sandstorm/mailer-daemon.
 
-## Usage
+## Features
 
+* Performant and distributed mail sending through SMTP or Mandrill
+* All Newsletter content is manageable through Neos
+* Support for multiple languages
+* Allowance to seggregate the recipient list arbitrarily to tightly control whom newsletters should be sent to
+* Custom receiver sources
 
-* Install this package:
+### Non-Features
+
+The following things are *not yet implemented, but might be implemented in further projects:
+
+* Sign Up for new Newsletters
+
+## Prerequisites
+
+* Install the [mailer sending daemon](https://github.com/sandstorm/mailer-daemon/releases) which is written in Go
+* Install Redis
+
+## Installation / Set Up
+
+* Install this package: TODO through packagist
 ```
 cd path/to/your/NeosDistribution
 cd Packages/Application
@@ -24,5 +42,32 @@ cd ../../
 ./flow flow:package:rescan
 ```
 
+* Ensure you have the Routes included, so that means `Configuration/Routes.yaml` should contain the following
+  *before* the Neos routes:
+  ```
+  -
+  name: 'Newsletter'
+  uriPattern: '<NewsletterSubroutes>'
+  subRoutes:
+    'NewsletterSubroutes':
+      package: 'Sandstorm.Newsletter'
+
+  ```
+
 * Create a neos page template, using the TypoScript object `Sandstorm.Newsletter:NewsletterPage`.
-* all styles will be auto-inlined
+  Also, ensure to include the `Sandstorm.Newsletter:SampleDataWidget` somewhere in your page.
+
+  As an example, you can use the following TypoScript snippet:
+  
+  ```
+  page = Sandstorm.Newsletter:NewsletterPage
+  page.sampleDataWidget = Sandstorm.Newsletter:SampleDataWidget
+  ```
+
+## Usage in Neos
+
+* First, create a "Receiver Source" which contains 
+
+
+
+* all styles will be auto-inlined.
