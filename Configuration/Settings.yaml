@@ -1,6 +1,6 @@
 Sandstorm:
   Newsletter:
-    receiverGroupCache: %FLOW_PATH_DATA%/Persistent/ReceiverGroups
+    receiverGroupCache: '%FLOW_PATH_DATA%/Persistent/ReceiverGroups'
     sendingApiUri: http://127.0.0.1:3000
     auth_token: A_LONG_RANDOM_STRING
     hmacUrlSecret: LONG_AND_RANDOM_AS_WELL
