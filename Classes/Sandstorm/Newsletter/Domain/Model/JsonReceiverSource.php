@@ -32,7 +32,12 @@ class JsonReceiverSource extends ReceiverSource {
 	 * @return string
 	 */
 	public function getSourceFileName() {
-		return $this->sourceFileName;
+	    $sourceFileName = trim($this->sourceFileName);
+	    if ($sourceFileName !== '' && $sourceFileName[0] === '/') {
+            return $this->sourceFileName;
+        } else {
+	        return \FLOW_PATH_ROOT . $sourceFileName;
+        }
 	}
 
 		/**
