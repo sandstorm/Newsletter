@@ -7,19 +7,22 @@
 			<tr>
 				<th colspan="2">Name</th>
 				<th>Configuration</th>
-				<th>&nbsp;</th>
+				<th>Processing</th>
 				<th>&nbsp;</th>
 			</tr>
 			</thead>
 			<f:for each="{receiverSources}" key="index" as="receiverSource">
 				<tr>
-					<td colspan="2">{receiverSource.name}</td>
-					<td>{receiverSource.configurationAsString} - last updated {receiverSource.lastUpdated -> f:format.date(format:'Y-m-d H:i:s')}</td>
+					<td colspan="2"><strong>{receiverSource.name}</strong></td>
+					<td>{receiverSource.configurationAsString}</td>
+                    <td>
+                        {receiverSource.lastUpdated -> f:format.date(format:'Y-m-d H:i:s')}
+                        <f:link.action action="refresh" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button neos-button-primary pull-right" title="Receiver Source Refresh">
+                            <i class="icon-refresh icon-white"></i>
+                        </f:link.action>
+                    </td>
 					<td class="neos-action">
 						<div class="neos-pull-right">
-							<f:link.action action="refresh" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button neos-button-primary" title="Receiver Source Refresh">
-								<i class="icon-refresh icon-white"></i>
-							</f:link.action>
 							<f:link.action action="preview" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button neos-button-primary" title="Receiver Source Preview">
 								<i class="icon-eye-open icon-white"></i>
 							</f:link.action>
@@ -60,16 +63,19 @@
 					<tr>
 						<td>&nbsp;</td>
 						<td>{receiverGroup.name}</td>
-						<td>{receiverGroup.filter}
-							<f:if condition="{receiverGroup.cacheFiles}">
-								<f:then>
-									processed {receiverGroup.cacheFiles}
-								</f:then>
-								<f:else>
-									not processed
-								</f:else>
-							</f:if>
-						</td>
+						<td>{receiverGroup.filter}</td>
+                        <td>
+                            <f:if condition="{receiverGroup.cacheFiles}">
+                                <f:then>
+                                    <sandstorm.newsletter:cacheFileBadge group="{receiverGroup}">
+                                        <span class="neos-label"><i class="icon-check-circle icon-white"></i> {label}</span>
+                                    </sandstorm.newsletter:cacheFileBadge>
+                                </f:then>
+                                <f:else>
+                                    not processed
+                                </f:else>
+                            </f:if>
+                        </td>
 						<td class="neos-action">
 							<div class="neos-pull-right">
 								<f:link.action action="previewReceiverGroup" arguments="{receiverGroup: receiverGroup}" class="neos-button neos-button-primary" title="Receiver Group Preview">
@@ -109,7 +115,7 @@
 					</tr>
 				</f:for>
 				<tr>
-					<td>&nbsp;</td>
+					<td colspan="2">&nbsp;</td>
 					<td colspan="3">
 						<f:link.action action="newReceiverGroup" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button neos-button-primary" title="Add Receiver Group">
 							<i class="icon-plus icon-white"></i> Add Receiver Group
@@ -125,8 +131,8 @@
 		<table class="neos-table">
 			<thead>
 				<tr>
-					<th colspan="2">Unsubscribe List</th>
-					<th>&nbsp;</th>
+					<th>Unsubscribe List</th>
+					<th>&nbsp</th>
 				</tr>
 			</thead>
 			<f:for each="{unsubscribeLists}" key="index" as="unsubscribeList">
