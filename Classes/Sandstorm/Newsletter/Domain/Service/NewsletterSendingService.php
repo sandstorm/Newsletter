@@ -85,11 +85,11 @@ class NewsletterSendingService {
 			);
 
 			if ($newsletter->getReceiverGroup()->getUnsubscribeList()) {
-                $blacklistFileName = $newsletter->getReceiverGroup()->getUnsubscribeList()->getUnsubscribeFileName();
-                if (file_exists($blacklistFileName)) {
-                    $request['Blacklist'] = $blacklistFileName;
-                }
-            }
+				$blacklistFileName = $newsletter->getReceiverGroup()->getUnsubscribeList()->getUnsubscribeFileName();
+				if (file_exists($blacklistFileName)) {
+					$request['Blacklist'] = $blacklistFileName;
+				}
+			}
 
 
 			$client->post(rtrim($this->sendingApiUri, '/') . '/' . $this->authToken . '/newsletter/' . $newsletter->getIdentifier() . '/send', array(
