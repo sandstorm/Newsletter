@@ -37,11 +37,8 @@ class EelHelper implements ProtectedContextAwareInterface {
 
 
 	public function findRandomRecordForGroup($identifier, $dimensions) {
-		$currentLanguageDimension = NULL;
-		if (isset($dimensions['language'][0])) {
-			// TODO!!! workaround to take ... [0]
-			$currentLanguageDimension = $dimensions['language'][0];
-		}
+		$preset = $this->contentDimensionPresetSource->findPresetByDimensionValues('language', $dimensions['language']);
+		$currentLanguageDimension = $preset['identifier'];
 		if (!$identifier) {
 			return array();
 		}
@@ -51,7 +48,6 @@ class EelHelper implements ProtectedContextAwareInterface {
 		if (!$receiverGroup) {
 			return array();
 		}
-
 		if (!file_exists($receiverGroup->getCacheFileName($currentLanguageDimension))) {
 			return array();
 		}
