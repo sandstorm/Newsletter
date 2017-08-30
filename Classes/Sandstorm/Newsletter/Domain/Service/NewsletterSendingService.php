@@ -84,13 +84,15 @@ class NewsletterSendingService {
 				)
 			);
 
-			$blacklistFileName = $newsletter->getReceiverGroup()->getUnsubscribeList()->getUnsubscribeFileName();
-			if (file_exists($blacklistFileName)) {
-				$request['Blacklist'] = $blacklistFileName;
+			if ($newsletter->getReceiverGroup()->getUnsubscribeList()) {
+				$blacklistFileName = $newsletter->getReceiverGroup()->getUnsubscribeList()->getUnsubscribeFileName();
+				if (file_exists($blacklistFileName)) {
+					$request['Blacklist'] = $blacklistFileName;
+				}
 			}
 
 
-			$response = $client->post(rtrim($this->sendingApiUri, '/') . '/' . $this->authToken . '/newsletter/' . $newsletter->getIdentifier() . '/send', array(
+			$client->post(rtrim($this->sendingApiUri, '/') . '/' . $this->authToken . '/newsletter/' . $newsletter->getIdentifier() . '/send', array(
 				'body' => json_encode($request))
 			);
 		}  catch (RequestException $e) {
