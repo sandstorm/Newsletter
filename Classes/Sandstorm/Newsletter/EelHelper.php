@@ -38,7 +38,7 @@ class EelHelper implements ProtectedContextAwareInterface {
 
 	public function findRandomRecordForGroup($identifier, $dimensions) {
 		$preset = $this->contentDimensionPresetSource->findPresetByDimensionValues('language', $dimensions['language']);
-        $currentLanguageDimension = $preset['identifier'];
+		$currentLanguageDimension = $preset['identifier'];
 		if (!$identifier) {
 			return array();
 		}
