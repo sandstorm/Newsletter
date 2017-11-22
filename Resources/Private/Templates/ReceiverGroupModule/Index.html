@@ -75,10 +75,10 @@
                                     <sandstorm.newsletter:cacheFileBadge group="{receiverGroup}">
                                         <f:if condition="{subscribers}">
                                             <f:then>
-                                                <span class="neos-label neos-label-success"><i class="icon-check-circle icon-white"></i> {label} <small style="font-weight: 300;">{subscribers} subscriber(s)</small></span>
+                                                <span class="neos-label neos-label-success" style="display: block;"><i class="icon-check-circle icon-white"></i> {label} <small style="font-weight: 300;">{subscribers} subscriber(s)</small></span>
                                             </f:then>
                                             <f:else>
-                                                <span class="neos-label"><i class="icon-times icon-white"></i> {label}</span>
+                                                <span class="neos-label" style="display: block; margin: 8px 0;"><i class="icon-times icon-white"></i> {label}</span>
                                             </f:else>
 
                                         </f:if>
