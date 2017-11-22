@@ -7,6 +7,7 @@
 			<tr>
 				<th colspan="2">Name</th>
 				<th>Configuration</th>
+				<th>Unsubscribe List</th>
 				<th>Processing</th>
 				<th>&nbsp;</th>
 			</tr>
@@ -15,6 +16,7 @@
 				<tr>
 					<td colspan="2"><strong>{receiverSource.name}</strong></td>
 					<td>{receiverSource.configurationAsString}</td>
+					<td>&nbsp;</td>
                     <td>
                         {receiverSource.lastUpdated -> f:format.date(format:'Y-m-d H:i:s')}
                         <f:link.action action="refresh" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button neos-button-primary pull-right" title="Receiver Source Refresh">
@@ -64,6 +66,7 @@
 						<td>&nbsp;</td>
 						<td>{receiverGroup.name}</td>
 						<td>{receiverGroup.filter}</td>
+						<td>{receiverGroup.unsubscribeList.name}</td>
                         <td>
                             <f:if condition="{receiverGroup.cacheFiles}">
                                 <f:then>
@@ -116,7 +119,7 @@
 				</f:for>
 				<tr>
 					<td colspan="2">&nbsp;</td>
-					<td colspan="3">
+					<td colspan="4">
 						<f:link.action action="newReceiverGroup" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button neos-button-primary" title="Add Receiver Group">
 							<i class="icon-plus icon-white"></i> Add Receiver Group
 						</f:link.action>
