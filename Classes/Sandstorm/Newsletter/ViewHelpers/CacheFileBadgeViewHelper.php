@@ -30,8 +30,11 @@ class CacheFileBadgeViewHelper extends AbstractViewHelper {
     {
 	    $presetIdentifiers = Arrays::trimExplode(', ', $group->getCacheFiles());
 	    $presets = $this->contentDimensionPresetSource->getAllPresets();
-	    $arguments = \array_map(function ($identifier) use ($presets) {
-	        return $presets['language']['presets'][$identifier]['label'];
+	    $arguments = \array_map(function ($identifier) use ($presets, $group) {
+	        return [
+	            'label' => $presets['language']['presets'][$identifier]['label'],
+                'subscribers' => $group->getNumberOfReceivers($identifier)
+            ];
         }, $presetIdentifiers);
 
         return self::renderStatic($arguments, $this->buildRenderChildrenClosure(), $this->renderingContext);
@@ -42,10 +45,12 @@ class CacheFileBadgeViewHelper extends AbstractViewHelper {
         $templateVariableContainer = $renderingContext->getTemplateVariableContainer();
 
         $output = '';
-        foreach ($arguments as $label) {
-            $templateVariableContainer->add('label', $label);
+        foreach ($arguments as $item) {
+            $templateVariableContainer->add('label', $item['label']);
+            $templateVariableContainer->add('subscribers', $item['subscribers']);
             $output .= $renderChildrenClosure();
             $templateVariableContainer->remove('label');
+            $templateVariableContainer->remove('subscribers');
         }
         return $output;
     }
