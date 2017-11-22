@@ -23,6 +23,9 @@
                     </td>
 					<td class="neos-action">
 						<div class="neos-pull-right">
+                            <f:link.action action="downloadCsvSource" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button" title="Download a CSV export">
+                                <i class="icon-download-alt icon-white"></i>
+                            </f:link.action>
 							<f:link.action action="preview" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSource.type}" class="neos-button neos-button-primary" title="Receiver Source Preview">
 								<i class="icon-eye-open icon-white"></i>
 							</f:link.action>

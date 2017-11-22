@@ -1,10 +1,19 @@
 <fieldset class="neos-span12">
 	<legend>CSV Receiver Source Configuration</legend>
 
+    <style>
+        .sandstorm-newsletter-upload {
+
+        }
+    </style>
+
 	<div class="neos-control-group{f:validation.ifHasErrors(for: 'receiverSource.sourceFile', then: ' neos-error')}">
 		<label class="neos-control-label" for="sourceFileName">Source File</label>
 		<div class="neos-controls">
-			<f:form.upload property="sourceFile" id="sourceFileName" class="neos-span12" />
+			<f:form.upload property="sourceFile" id="sourceFileName" class="neos-button sandstorm-newsletter-upload" style="height: 40px;" />
+            <f:link.action action="downloadCsvSource" arguments="{receiverSource: receiverSource, receiverSourceType: receiverSourceType}" class="neos-button" title="Download CSV Source List">
+                <i class="icon-download-alt icon-white"></i>
+            </f:link.action>
 			<f:render partial="FieldValidationResults" arguments="{fieldname: 'receiverSource.sourceFile'}"/>
 		</div>
 	</div>
