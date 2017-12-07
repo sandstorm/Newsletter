@@ -332,12 +332,9 @@ class ReceiverGroupModuleController extends AbstractModuleController {
         }
         $content = ob_get_clean();
 
-        header('Content-Type: text/csv');
-        header('Content-disposition: attachment;filename=' . $filename);
-        header('Content-Length: ' . \mb_strlen($content));
-        echo $content;
-
-        exit;
+        $this->outputCsv(function () use ($content) {
+            echo $content;
+        }, $receiverSource->getName() . '.csv', \mb_strlen($content));
     }
 
 	/**
@@ -345,12 +342,20 @@ class ReceiverGroupModuleController extends AbstractModuleController {
 	 */
 	public function downloadUnsubscribeListAction(UnsubscribeList $unsubscribeList) {
 
-		$fp = fopen($unsubscribeList->getUnsubscribeFileName(), 'r');
-
-		header('Content-Type: text/csv');
-		header('Content-disposition: attachment;filename=UnsubscribeList.csv');
-		header('Content-Length: ' . filesize($unsubscribeList->getUnsubscribeFileName()));
-		fpassthru($fp);
-		exit;
+	    if (\is_file($unsubscribeList->getUnsubscribeFileName())) {
+            $fp = fopen($unsubscribeList->getUnsubscribeFileName(), 'r');
+            $this->outputCsv(function () use ($fp) {
+                fpassthru($fp);
+            }, 'UnsubscribeList.csv', filesize($unsubscribeList->getUnsubscribeFileName()));
+        }
+        $this->outputCsv();
 	}
+
+	protected function outputCsv(\Closure $output = null, $filename = 'export.csv', $filesize = 0) {
+        header('Content-Type: text/csv');
+        header('Content-disposition: attachment;filename=' . $filename);
+        header('Content-Length: ' . $filesize);
+        $output ? $output() : null;
+        exit;
+    }
 }
