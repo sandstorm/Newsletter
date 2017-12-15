@@ -6,6 +6,8 @@ namespace Sandstorm\Newsletter\Controller;
  *                                                                        *
  *                                                                        */
 
+use Sandstorm\Newsletter\Domain\Model\CsvReceiverSource;
+use Sandstorm\Newsletter\Domain\Model\JsonReceiverSource;
 use Sandstorm\Newsletter\Domain\Model\ReceiverGroup;
 use Sandstorm\Newsletter\Domain\Model\ReceiverSource;
 use Sandstorm\Newsletter\Domain\Model\UnsubscribeList;
@@ -14,6 +16,7 @@ use Sandstorm\Newsletter\Domain\Repository\ReceiverSourceRepository;
 use Sandstorm\Newsletter\Domain\Repository\UnsubscribeListRepository;
 use Sandstorm\Newsletter\Domain\Service\ReceiverGroupGenerationService;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Utility\Files;
 use TYPO3\Neos\Controller\Module\AbstractModuleController;
 use TYPO3\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
 
@@ -300,17 +303,59 @@ class ReceiverGroupModuleController extends AbstractModuleController {
 		$this->redirect('index');
 	}
 
+    /**
+     * @param CsvReceiverSource $receiverSource
+     * @param string $receiverSourceType
+     */
+    public function downloadCsvSourceAction(ReceiverSource $receiverSource, $receiverSourceType)
+    {
+        $filename = $receiverSource->getName() . '.csv';
+
+        $content = \explode(chr(10), Files::getFileContents($receiverSource->getSourceFileName()));
+        $header = \array_keys(\json_decode(\reset($content), true));
+
+        ob_start();
+        $fh = fopen('php://output', 'w');
+        fputcsv($fh, $header);
+        foreach ($content as $record) {
+            $record = \json_decode($record, true);
+            if ($record === null) {
+                continue;
+            }
+            $record = \array_values($record);
+            foreach ($record as $propertyName => $propertyValue) {
+                if (!\is_scalar($propertyValue)) {
+                    unset($record[$propertyName]);
+                }
+            }
+            fputcsv($fh, $record);
+        }
+        $content = ob_get_clean();
+
+        $this->outputCsv(function () use ($content) {
+            echo $content;
+        }, $receiverSource->getName() . '.csv', \mb_strlen($content));
+    }
+
 	/**
 	 * @param UnsubscribeList $unsubscribeList
 	 */
 	public function downloadUnsubscribeListAction(UnsubscribeList $unsubscribeList) {
 
-		$fp = fopen($unsubscribeList->getUnsubscribeFileName(), 'r');
-
-		header('Content-Type: text/csv');
-		header('Content-disposition: attachment;filename=UnsubscribeList.csv');
-		header('Content-Length: ' . filesize($unsubscribeList->getUnsubscribeFileName()));
-		fpassthru($fp);
-		exit;
+	    if (\is_file($unsubscribeList->getUnsubscribeFileName())) {
+            $fp = fopen($unsubscribeList->getUnsubscribeFileName(), 'r');
+            $this->outputCsv(function () use ($fp) {
+                fpassthru($fp);
+            }, 'UnsubscribeList.csv', filesize($unsubscribeList->getUnsubscribeFileName()));
+        }
+        $this->outputCsv();
 	}
+
+	protected function outputCsv(\Closure $output = null, $filename = 'export.csv', $filesize = 0) {
+        header('Content-Type: text/csv');
+        header('Content-disposition: attachment;filename=' . $filename);
+        header('Content-Length: ' . $filesize);
+        $output ? $output() : null;
+        exit;
+    }
 }

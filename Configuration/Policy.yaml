@@ -3,7 +3,7 @@ privilegeTargets:
   'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
 
     'Sandstorm.Newsletter:Backend.Module.Management.Newsletter':
-      matcher: 'method(Sandstorm\Newsletter\Controller\ReceiverGroupModuleController->(index|new|create|edit|update|delete|preview|refresh|editReceiverGroup|updateReceiverGroup|newReceiverGroup|createReceiverGroup|deleteReceiverGroup|previewReceiverGroup|newUnsubscribeList|createUnsubscribeList|deleteUnsubscribeList|editUnsubscribeList|updateUnsubscribeList|downloadUnsubscribeList)Action()) || method(TYPO3\Neos\Service\Controller\AbstractServiceController->(error)Action())'
+      matcher: 'method(Sandstorm\Newsletter\Controller\ReceiverGroupModuleController->(index|new|create|edit|update|delete|preview|refresh|editReceiverGroup|updateReceiverGroup|newReceiverGroup|createReceiverGroup|deleteReceiverGroup|previewReceiverGroup|newUnsubscribeList|createUnsubscribeList|deleteUnsubscribeList|editUnsubscribeList|updateUnsubscribeList|downloadCsvSource|downloadUnsubscribeList)Action()) || method(TYPO3\Neos\Service\Controller\AbstractServiceController->(error)Action())'
     'Sandstorm.Newsletter:NewsletterSending':
       matcher: 'method(Sandstorm\Newsletter\Controller\NewsletterSendingController->(index|status|cancel|failures)Action())'
 
