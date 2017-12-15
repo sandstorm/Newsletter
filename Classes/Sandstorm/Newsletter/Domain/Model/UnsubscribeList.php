@@ -20,7 +20,6 @@ use TYPO3\Flow\Utility\Files;
  */
 class UnsubscribeList {
 
-
 	/**
 	 * @var string
 	 * @Flow\InjectConfiguration("receiverGroupCache")
@@ -70,6 +69,7 @@ class UnsubscribeList {
 	public function unsubscribeEmail($email) {
 		Files::createDirectoryRecursively($this->receiverGroupCache);
 		file_put_contents($this->getUnsubscribeFileName(), strtolower($email) . ';' . (new \DateTime())->format('Y-m-d H:i:s') . "\n", FILE_APPEND);
+		$this->emitEmailUnsubscribed($email, $this);
 	}
 
 	/**
@@ -94,4 +94,14 @@ class UnsubscribeList {
 			rename($this->unsubscribeFile->createTemporaryLocalCopy(), $this->getUnsubscribeFileName());
 		}
 	}
+
+    /**
+     * @param string $email
+     * @param UnsubscribeList $list
+     * @Flow\Signal
+     */
+	public function emitEmailUnsubscribed($email, UnsubscribeList $list)
+    {
+
+    }
 }
