@@ -1,6 +1,11 @@
 <f:layout name="BackendSubModule" />
 
 <f:section name="content">
+    <style>
+        .neos .neos-label-success {
+            background-color: #00a338 !important;
+        }
+    </style>
 	<div class="neos-row-fluid">
 		<table class="neos-table">
 			<thead>
@@ -74,7 +79,15 @@
                             <f:if condition="{receiverGroup.cacheFiles}">
                                 <f:then>
                                     <sandstorm.newsletter:cacheFileBadge group="{receiverGroup}">
-                                        <span class="neos-label"><i class="icon-check-circle icon-white"></i> {label}</span>
+                                        <f:if condition="{subscribers}">
+                                            <f:then>
+                                                <span class="neos-label neos-label-success" style="display: block;"><i class="icon-check-circle icon-white"></i> {label} <small style="font-weight: 300;">{subscribers} subscriber(s)</small></span>
+                                            </f:then>
+                                            <f:else>
+                                                <span class="neos-label" style="display: block; margin: 8px 0;"><i class="icon-times icon-white"></i> {label}</span>
+                                            </f:else>
+
+                                        </f:if>
                                     </sandstorm.newsletter:cacheFileBadge>
                                 </f:then>
                                 <f:else>
