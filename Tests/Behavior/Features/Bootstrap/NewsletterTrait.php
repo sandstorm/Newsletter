@@ -182,7 +182,7 @@ trait NewsletterTrait {
 		$response = $client->get('messages');
 
 		// The newest mail is on top; so we just need $mails[0]
-		$mails = json_decode($response->getBody(TRUE), TRUE);
+		$mails = json_decode($response->getBody(true), true);
 
 		$to = $mails['items'][0]['To'];
 		$actualRecipient = $to[0]['Mailbox'] . '@' . $to[0]['Domain'];
@@ -196,7 +196,7 @@ trait NewsletterTrait {
 			$isContainsQuery = preg_match('/contains/', $key);
 			$key = trim(str_replace('contains', '', $key));
 
-			$actualValue = NULL;
+			$actualValue = null;
 			switch ($key) {
 				case 'Subject':
 					$actualValue = $mails['items'][0]['Content']['Headers']['Subject'][0];
@@ -218,7 +218,7 @@ trait NewsletterTrait {
 			}
 
 			if ($isContainsQuery) {
-				if (strpos($actualValue, $expectedValue) === FALSE) {
+				if (strpos($actualValue, $expectedValue) === false) {
 					throw new \Exception("The field $key does not contain the expected value; actual contents: $actualValue");
 				}
 			} else {

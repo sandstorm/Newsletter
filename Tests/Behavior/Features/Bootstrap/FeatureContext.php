@@ -20,7 +20,7 @@ class FeatureContext extends MinkContext {
 	 */
 	protected $objectManager;
 
-	protected $isolated = FALSE;
+	protected $isolated = false;
 
 	protected $parameters;
 
